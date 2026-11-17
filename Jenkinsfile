@@ -22,6 +22,11 @@ pipeline {
             steps {
                 sh '$JMETER_HOME/bin/jmeter -n -f -t perf/duration.jmx -l reports/duration.jtl'
                 perfReport sourceDataFiles: 'reports/duration.jtl', errorFailedThreshold: 5, errorUnstableThreshold: 1
+                script {
+                    if (currentBuild.currentResult == 'FAILURE') {
+                        error('응답 시간 기준 미달: 에러율 5% 이상')
+                    }
+                }
             }
         }
     }
