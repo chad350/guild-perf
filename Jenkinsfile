@@ -21,6 +21,7 @@ pipeline {
         stage('Resoponse Time Test') {
             steps {
                 sh '$JMETER_HOME/bin/jmeter -n -f -t perf/duration.jmx -l reports/duration.jtl'
+                perfReport sourceDataFiles: 'reports/duration.jtl'
             }
         }
     }
