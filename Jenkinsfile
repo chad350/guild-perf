@@ -18,6 +18,11 @@ pipeline {
                 sh '$JMETER_HOME/bin/jmeter -n -f -t perf/smoke.jmx -l reports/smoke.jtl -e -o html-report -Jthreads=$THREADS -Jloops=$LOOPS'
             }
         }
+        stage('Resoponse Time Test') {
+            steps {
+                sh '$JMETER_HOME/bin/jmeter -n -f -t perf/duration.jmx -l reports/duration.jtl'
+            }
+        }
     }
     post {
         always {
